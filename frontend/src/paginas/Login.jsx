@@ -8,20 +8,22 @@ const Login = () => {
         <form  className="my-10 bg-white shadow rounded-lg p-10">
 
             <div className="my-5">
-                <label className="uppercase text-gray-900 block text-center text-xl font-bold"
+                <label className="uppercase text-gray-900 block  text-xl font-bold"
                 htmlFor="email
                 ">Email</label>
                 <input 
+                    id="email"
                     type="email"
                     placeholder="Ingresa tu Email"
                     className="w-full mt-3 p-3 border rounded-xl bg-gray-200" />
 
             </div>
             <div className="my-5">
-                <label className="uppercase text-gray-900 block text-center text-xl font-bold"
-                htmlFor="email
+                <label className="uppercase text-gray-900 block  text-xl font-bold"
+                htmlFor="password
                 ">Password</label>
                 <input 
+                    id="password"
                     type="password"
                     placeholder="Ingresa tu Contraseña"
                     className="w-full mt-3 p-3 border rounded-xl bg-gray-200" />
@@ -35,11 +37,11 @@ const Login = () => {
         <nav className="lg:flex lg:justify-between">
                 <Link
                 className="block text-center my-5 text-white uppercase text-sm"
-                    to="registrar"
+                    to="/registrar"
                 >¿No tienes una cuenta? Registrate</Link>
                 <Link
                 className="block text-center my-5 text-white uppercase text-sm"
-                    to="olvide-password"
+                    to="/olvide-password"
                 >Olvide mi password</Link>
 
         </nav>
