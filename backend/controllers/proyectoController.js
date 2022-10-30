@@ -1,4 +1,5 @@
 import Proyecto from "../modelos/Proyecto.js";
+import Tarea from "../modelos/Tarea.js";
 
 const obtenerProyectos = async (req, res) => {
   const proyectos = await Proyecto.find().where("creador").equals(req.usuario);
@@ -31,7 +32,10 @@ const obtenerProyecto = async (req, res) => {
     return res.status(401).json({ msg: error.message });
   }
 
-  res.json(proyecto);
+  //obtener las tareas del Proyecto
+  const tareas = await Tarea.find().where("proyecto").equals(proyecto.id);
+
+  res.json({ proyecto, tareas });
 };
 const editarProyecto = async (req, res) => {
   const { id } = req.params;
@@ -87,14 +91,25 @@ const agregarColaborador = async (req, res) => {
 const eliminarColaborador = async (req, res) => {
   res.json({ msg: "desde colaborar proyecto" });
 };
-const obtenerTareas = async (req, res) => {
-  res.json({ msg: "desde obtener tareas" });
-};
+// const obtenerTareas = async (req, res) => {
+//   const { id } = req.params;
+
+//   const existeProyecto = await Proyecto.findById(id);
+
+//   if (!existeProyecto) {
+//     const error = new Error("No encontrado");
+//     res.status(404).json({ msg: error.message });
+//   }
+
+//   const tareas = await Tarea.find().where("proyecto").equals(id);
+
+//   res.json(tareas);
+// };
 
 export {
   obtenerProyectos,
   obtenerProyecto,
-  obtenerTareas,
+  // obtenerTareas,
   nuevoProyecto,
   editarProyecto,
   agregarColaborador,

@@ -3,7 +3,7 @@ import express from "express";
 import {
   obtenerProyectos,
   obtenerProyecto,
-  obtenerTareas,
+  // obtenerTareas,
   nuevoProyecto,
   editarProyecto,
   agregarColaborador,
@@ -26,7 +26,7 @@ router
   .put(checkAuth, editarProyecto)
   .delete(checkAuth, eliminarProyecto);
 
-router.get("/tareas/:id", checkAuth, obtenerTareas);
+// router.get("/tareas/:id", checkAuth, obtenerTareas);
 router.post("/agregar-colaborador/:id", checkAuth, agregarColaborador);
 router.post("/eliminar-colaborador/:id", checkAuth, eliminarColaborador);
 
