@@ -1,6 +1,7 @@
 import Usuario from "../modelos/Usuario.js";
 import generarId from "../helpers/generar-id.js";
 import generarJWT from "../helpers/generarJWT.js";
+import { emailRegistro } from "../helpers/email.js";
 
 const registrar = async (req, res) => {
   const { email } = req.body;
@@ -22,6 +23,11 @@ const registrar = async (req, res) => {
     usuario.token = generarId();
 
     await usuario.save();
+
+    //enviar email confirmacion
+    const { nombre, email, token } = usuario;
+
+    emailRegistro({ email, nombre, token });
 
     res.json({
       msg: "Usuario creado correctamente, Revisa tu email para confirmar tu cuenta",
@@ -78,7 +84,7 @@ const confirmar = async (req, res) => {
   //si el usuario no existe
 
   if (!usuarioConfirmar) {
-    const error = new Error("Token no valido");
+    const error = new Error("Token no válido");
     return res.status(403).json({
       msg: error.message,
     });
