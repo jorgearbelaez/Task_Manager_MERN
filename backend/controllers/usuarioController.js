@@ -1,7 +1,7 @@
 import Usuario from "../modelos/Usuario.js";
 import generarId from "../helpers/generar-id.js";
 import generarJWT from "../helpers/generarJWT.js";
-import { emailRegistro } from "../helpers/email.js";
+import { emailRegistro, emailOlvidePassword } from "../helpers/email.js";
 
 const registrar = async (req, res) => {
   const { email } = req.body;
@@ -123,6 +123,12 @@ const olvidePassword = async (req, res) => {
     usuario.token = generarId();
     await usuario.save();
 
+    //enviar el email con instrucciones
+
+    const { nombre, email, token } = usuario;
+
+    emailOlvidePassword({ email, nombre, token });
+
     res.json({
       msg: `Hemos enviado un email a ${email} con las instrucciones`,
     });
@@ -157,7 +163,7 @@ const nuevoPassword = async (req, res) => {
   const usuario = await Usuario.findOne({ token });
 
   if (!usuario) {
-    const error = new Error("Token no valido");
+    const error = new Error("Token no válido");
     return res.status(403).json({
       msg: error.message,
     });
