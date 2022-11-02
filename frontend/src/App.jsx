@@ -32,7 +32,7 @@ function App() {
             </Route>
             <Route path="/proyectos" element={<RutaProtegida />}>
                 <Route index element={<Proyectos />} />
-                <Route path='crear-proyecto' element={<nuevoProyecto />} />
+                <Route path='crear-proyecto' element={<NuevoProyecto />} />
                 
             </Route>
 

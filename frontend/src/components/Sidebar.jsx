@@ -12,7 +12,7 @@ const Sidebar = () => {
 
         <Link 
             to="crear-proyecto"
-            className="bg-sky-600 w-full p-3 text-white uppercase font-bold block mt-5 text-center rounded-lg"
+            className="bg-green-600 w-full p-3 text-white uppercase font-bold block mt-5 text-center rounded-lg"
 
         >Nuevo Proyecto</Link>
 
