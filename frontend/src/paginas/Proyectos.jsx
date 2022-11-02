@@ -2,7 +2,12 @@
 
 const Proyectos = () => {
   return (
-    <div>Proyectos</div>
+    <>
+        <h1 className="text-4xl font-black">Proyectos</h1>
+    
+    
+    
+    </>
   )
 }
 

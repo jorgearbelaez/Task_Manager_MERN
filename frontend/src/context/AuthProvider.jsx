@@ -38,7 +38,7 @@ const AuthProvider = ({children})=>{
 
             navigate('/proyectos')
           } catch (error) {
-            setAuth()
+            setAuth({})
           }
             setCargando(false)
 
