@@ -36,7 +36,7 @@ const AuthProvider = ({children})=>{
 
             setAuth(data)
 
-            navigate('/proyectos')
+            // navigate('/proyectos')
           } catch (error) {
             setAuth({})
           }

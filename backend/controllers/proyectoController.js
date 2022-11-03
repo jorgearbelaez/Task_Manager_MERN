@@ -4,7 +4,7 @@ import Tarea from "../modelos/Tarea.js";
 const obtenerProyectos = async (req, res) => {
   const proyectos = await Proyecto.find().where("creador").equals(req.usuario);
 
-  res.json({ proyectos });
+  res.json(proyectos);
 };
 const nuevoProyecto = async (req, res) => {
   const proyecto = new Proyecto(req.body);
@@ -32,10 +32,7 @@ const obtenerProyecto = async (req, res) => {
     return res.status(401).json({ msg: error.message });
   }
 
-  //obtener las tareas del Proyecto
-  const tareas = await Tarea.find().where("proyecto").equals(proyecto.id);
-
-  res.json({ proyecto, tareas });
+  res.json(proyecto);
 };
 const editarProyecto = async (req, res) => {
   const { id } = req.params;
