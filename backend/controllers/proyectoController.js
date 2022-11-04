@@ -51,7 +51,7 @@ const editarProyecto = async (req, res) => {
 
   proyecto.nombre = req.body.nombre || proyecto.nombre;
   proyecto.cliente = req.body.cliente || proyecto.cliente;
-  proyecto.desdripcion = req.body.descripcion || proyecto.descripcion;
+  proyecto.descripcion = req.body.descripcion || proyecto.descripcion;
   proyecto.fechaEntrega = req.body.fechaEntrega || proyecto.fechaEntrega;
   try {
     const proyectoActualizado = await proyecto.save();
