@@ -8,7 +8,7 @@ import Alerta from './Alerta'
 const PRIORIDAD = ["Baja","Media","Alta"]
 
 
-const ModalFormularioTarea = () => {
+const ModalFormularioTarea =  () => {
 
     const [nombre,setNombre] = useState('')
     const [descripcion,setDescripcion] = useState('')
@@ -21,7 +21,7 @@ const ModalFormularioTarea = () => {
 
     const {modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea} = useProyectos()
 
-    const handleSubmit = ( e=>{
+    const handleSubmit = async  e=>{
         e.preventDefault()
 
         if([nombre, descripcion, prioridad, fechaEntrega].includes('')){
@@ -32,8 +32,13 @@ const ModalFormularioTarea = () => {
             return
         }
     
-        submitTarea({nombre, descripcion, prioridad, fechaEntrega, proyecto: params.id})
-    })
+        await submitTarea({nombre, descripcion, prioridad, fechaEntrega, proyecto: params.id})
+
+        setNombre("")
+        setDescripcion("")
+        setFechaEntrega("")
+        setPrioridad("")
+    }
  
     const {msg} = alerta
     return (
