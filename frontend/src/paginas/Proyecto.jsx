@@ -19,8 +19,6 @@ const Proyecto = () => {
     const admin = useAdmin()
 
     
-    
-
     useEffect(()=>{
         
         obtenerProyecto(params.id)
@@ -34,7 +32,7 @@ const Proyecto = () => {
 
     const { msg } = alerta
     return (
-        msg && alerta.error ? <Alerta alerta={alerta} /> : (
+        
 
             <>
 
@@ -69,14 +67,7 @@ const Proyecto = () => {
                 )}
 
                 <p className="font-bold text-xl mt-10">Tareas del proyecto</p>
-                <div className='flex justify-center'>
-                    <div className='w-full md:w-1/2 lg:w-1/4'>
-
-                        {msg && <Alerta  alerta={alerta} />}
-
-                    </div>
-
-                </div>
+               
 
                 <div className="bg-white shadow mt-10 rounded-lg">
 
@@ -121,7 +112,7 @@ const Proyecto = () => {
                 <ModalEliminarColaborador />
             
             </>
-        )   
+           
     )
 }
 
