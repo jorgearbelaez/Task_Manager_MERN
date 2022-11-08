@@ -100,7 +100,30 @@ const eliminarTarea = async (req, res) => {
   }
 };
 
-const cambiarEstado = (req, res) => {};
+const cambiarEstado = async (req, res) => {
+  const { id } = req.params;
+
+  const tarea = await Tarea.findById(id).populate("proyecto");
+
+  if (!tarea) {
+    const error = new Error("No existe la tarea");
+    return res.status(404).json({ msg: error.message });
+  }
+  if (
+    tarea.proyecto.creador.toString() !== req.usuario._id.toString() &&
+    !tarea.proyecto.colaboradores.some(
+      (colaborador) => colaborador._id.toString() === req.usuario._id.toString()
+    )
+  ) {
+    const error = new Error("No tienes los permisos para acceder a esta tarea");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  tarea.estado = !tarea.estado;
+  await tarea.save();
+
+  res.json(tarea);
+};
 
 export {
   agregarTarea,

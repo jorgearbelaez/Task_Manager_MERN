@@ -6,7 +6,7 @@ const Tarea = ({tarea}) => {
 
     const {nombre, descripcion, prioridad, fechaEntrega, estado, _id } = tarea
 
-    const { handleModalEditarTarea, handleModalEliminarTarea}= useProyectos()
+    const { handleModalEditarTarea, handleModalEliminarTarea, completarTarea}= useProyectos()
 
     const admin = useAdmin()
 
@@ -26,15 +26,12 @@ const Tarea = ({tarea}) => {
                     onClick={()=> handleModalEditarTarea(tarea)}
                 >Editar</button>
             )}
-            {estado ? (
+            
                 <button
-                className="bg-sky-600 px-4 py-3 text-white font-bold text-sm rounded-lg uppercase"
-                >Completa </button> 
-            ): (
-                <button
-                className="bg-gray-600 px-4 py-3 text-white font-bold text-sm rounded-lg uppercase"
-                >Imcompleta </button> 
-            )}
+                    className={`${estado ? "bg-sky-600" : "bg-gray-600"}  px-4 py-3 text-white font-bold text-sm rounded-lg uppercase"`}
+                    onClick={()=>completarTarea(_id)}
+                >{estado  ? "completa" : "incompleta"}</button> 
+            
             
             {admin && (
                 <button
