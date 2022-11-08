@@ -14,6 +14,7 @@ const ProyectosProvider = ({children})=> {
     const [ modalEliminarTarea, setModalEliminarTarea] = useState(false)
     const [tarea, setTarea] = useState({})
     const [colaborador, setColaborador] = useState({})
+    const [modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
 
     const navigate = useNavigate()
 
@@ -371,7 +372,7 @@ const ProyectosProvider = ({children})=> {
                 error: false
             })
             setColaborador({})
-            setAlerta({})
+            
             
         } catch (error) {
             setAlerta({
@@ -379,6 +380,42 @@ const ProyectosProvider = ({children})=> {
                 error: true
             })
         }
+    }
+    const handleModalEliminarColaborador = (colaborador)=>{
+        setModalEliminarColaborador(!modalEliminarColaborador)
+        setColaborador(colaborador)
+    }
+    const eliminarColaborador = async () =>{
+       try {
+        const token = localStorage.getItem("token")
+    
+        if(!token) return 
+    
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await clienteAxios.post(`/proyectos/eliminar-colaborador/${proyecto._id}`, {id:colaborador._id}, config)
+
+            const proyectoActualizado = {...proyecto}
+            proyectoActualizado.colaboradores = proyectoActualizado.colaboradores.filter( colaboradorState =>colaboradorState._id !== colaborador._id)
+
+            setProyecto(proyectoActualizado)
+
+            setAlerta({
+                msg: data.msg,
+                error: false
+            })
+            setColaborador({})
+            setModalEliminarColaborador(false)
+
+
+       } catch (error) {
+        console.log(error.response)
+       }
     }
 
 
@@ -403,8 +440,10 @@ const ProyectosProvider = ({children})=> {
                 eliminarTarea,
                 submitColaborador,
                 colaborador,
-                agregarColaborador                
-                
+                agregarColaborador,
+                handleModalEliminarColaborador,               
+                modalEliminarColaborador,
+                eliminarColaborador
             }}
 
             >
