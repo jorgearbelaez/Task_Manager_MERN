@@ -15,6 +15,7 @@ const ProyectosProvider = ({children})=> {
     const [tarea, setTarea] = useState({})
     const [colaborador, setColaborador] = useState({})
     const [modalEliminarColaborador, setModalEliminarColaborador] = useState(false)
+    const [buscador, setBuscador] = useState(false)
 
     const navigate = useNavigate()
 
@@ -455,6 +456,11 @@ const ProyectosProvider = ({children})=> {
         } catch (error) {
             console.log(error.response)
         }
+
+    }
+    
+    const handleBuscador = ()=>{
+        setBuscador(!buscador)
     }
 
 
@@ -483,7 +489,9 @@ const ProyectosProvider = ({children})=> {
                 handleModalEliminarColaborador,               
                 modalEliminarColaborador,
                 eliminarColaborador,
-                completarTarea
+                completarTarea,
+                handleBuscador,
+                buscador
             }}
 
             >
