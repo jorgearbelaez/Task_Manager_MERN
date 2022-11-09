@@ -15,8 +15,8 @@ let socket;
 const Proyecto = () => {
 
     const params = useParams()
-
-    const{obtenerProyecto, proyecto, cargando, handleModalTarea, alerta, submitTareasProyecto, eliminarTareaProyecto} = useProyectos()
+                
+    const{obtenerProyecto, proyecto, cargando, handleModalTarea, alerta, submitTareasProyecto, eliminarTareaProyecto, actualizarTareaProyecto} = useProyectos()
 
     const admin = useAdmin()
     
@@ -42,6 +42,12 @@ const Proyecto = () => {
             
             if(tareaEliminada.proyecto === proyecto._id){
                 eliminarTareaProyecto(tareaEliminada)
+            }
+        })
+        socket.on("tarea actualizada", tareaActualizada => {
+            
+            if(tareaActualizada.proyecto._id === proyecto._id){
+                actualizarTareaProyecto(tareaActualizada)
             }
         })
 
