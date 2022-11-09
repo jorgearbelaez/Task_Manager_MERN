@@ -35,6 +35,28 @@ app.use("/api/tareas", tareaRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
+const servidor = app.listen(PORT, () => {
   console.log(`servidor corriendo en el puerto ${PORT}`);
+});
+// Socket.io
+import { Server, Socket } from "socket.io";
+
+const io = new Server(servidor, {
+  pingTimeout: 60000,
+  cors: {
+    origin: process.env.FRONTEND_URL,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Conectado a socket.io");
+
+  // definir eventos
+  socket.on("abrir proyecto", (proyecto) => {
+    socket.join(proyecto);
+  });
+
+  socket.on("nueva tarea", (tarea) => {
+    socket.to(tarea.proyecto).emit("tarea agregada", tarea);
+  });
 });
