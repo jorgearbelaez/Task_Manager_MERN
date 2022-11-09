@@ -446,12 +446,10 @@ const ProyectosProvider = ({children})=> {
 
             const { data } = await clienteAxios.post(`/tareas/estado/${id}`, {}, config)
 
-            const proyectoActualizado = {...proyecto}
-            proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
-
-            setProyecto(proyectoActualizado)
             setTarea({})
             setAlerta({})
+            // socket
+            socket.emit("cambiar estado", data)
             
         } catch (error) {
             console.log(error.response)
@@ -485,6 +483,13 @@ const ProyectosProvider = ({children})=> {
          setProyecto(proyectoActualizado)
     }
 
+    const cambiarEstadoTarea = (tarea)=>{
+        const proyectoActualizado = {...proyecto}
+        proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === tarea._id ? tarea : tareaState)
+
+        setProyecto(proyectoActualizado)
+    }
+
 
     return(
         <ProyectosContext.Provider
@@ -516,7 +521,8 @@ const ProyectosProvider = ({children})=> {
                 buscador,
                 submitTareasProyecto,
                 eliminarTareaProyecto,
-                actualizarTareaProyecto
+                actualizarTareaProyecto,
+                cambiarEstadoTarea
             }}
 
             >
