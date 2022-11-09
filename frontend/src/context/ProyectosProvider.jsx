@@ -314,14 +314,11 @@ const ProyectosProvider = ({children})=> {
                 error: false
             })
 
-            //sincronizar el state
-            const proyectoActualizado = {...proyecto}
-            proyectoActualizado.tareas = proyectoActualizado.tareas.filter( tareaState => tareaState._id !== tarea._id)
-
-            setProyecto(proyectoActualizado)
-
-            
             setModalEliminarTarea(false)
+            
+            //socket.io
+            socket.emit("eliminar tarea", tarea)
+
             setTarea({})
             setTimeout(() => {
                 setAlerta({})
@@ -466,12 +463,18 @@ const ProyectosProvider = ({children})=> {
     const handleBuscador = ()=>{
         setBuscador(!buscador)
     }
-    // socket io 
 
+    // socket io 
     const submitTareasProyecto = (tarea)=>{
         //agregar la tarea al state
         const proyectoActualizado = {...proyecto}    
         proyectoActualizado.tareas= [...proyectoActualizado.tareas, tarea]
+        setProyecto(proyectoActualizado)
+    }
+    const eliminarTareaProyecto = (tarea)=>{
+        //sincronizar el state
+        const proyectoActualizado = {...proyecto}
+        proyectoActualizado.tareas = proyectoActualizado.tareas.filter( tareaState => tareaState._id !== tarea._id)
         setProyecto(proyectoActualizado)
     }
 
@@ -504,7 +507,8 @@ const ProyectosProvider = ({children})=> {
                 completarTarea,
                 handleBuscador,
                 buscador,
-                submitTareasProyecto
+                submitTareasProyecto,
+                eliminarTareaProyecto
             }}
 
             >

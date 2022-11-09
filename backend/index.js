@@ -59,4 +59,9 @@ io.on("connection", (socket) => {
   socket.on("nueva tarea", (tarea) => {
     socket.to(tarea.proyecto).emit("tarea agregada", tarea);
   });
+
+  socket.on("eliminar tarea", (tarea) => {
+    socket.to(tarea.proyecto).emit("tarea eliminada", tarea);
+  });
 });
+[];
