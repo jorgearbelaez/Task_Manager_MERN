@@ -1,10 +1,20 @@
-import {Link} from "react-router-dom"
-import useProyectos from "../hooks/useProyectos"
-import Busqueda from "./Busqueda"
+import { Link } from 'react-router-dom'
+import useProyectos from '../hooks/useProyectos'
+import useAuth from '../hooks/useAuth'
+import Busqueda from './Busqueda'
 
 const header = () => {
 
-    const { handleBuscador} = useProyectos()
+    const { handleBuscador, cerrarSesionProyectos } = useProyectos()
+    const { cerrarSesionAuth } = useAuth()
+
+
+    const handleCerrarSesion = () => {
+        cerrarSesionAuth()
+        cerrarSesionProyectos()
+        localStorage.removeItem('token')
+    }
+
   return (
     <header className="px-4 py-5 bg-gray-800 border-b"> 
 
@@ -31,6 +41,7 @@ const header = () => {
                 <button
                     type="button"
                     className="text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold"
+                    onClick={handleCerrarSesion}
 
                 >Cerrar Sesion</button>
 

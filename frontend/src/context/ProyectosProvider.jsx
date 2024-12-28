@@ -489,6 +489,12 @@ const ProyectosProvider = ({children})=> {
 
         setProyecto(proyectoActualizado)
     }
+    const cerrarSesionProyectos = () => {
+        setProyectos([])
+        setProyecto({})
+        setAlerta({})
+
+    }
 
 
     return(
@@ -522,7 +528,8 @@ const ProyectosProvider = ({children})=> {
                 submitTareasProyecto,
                 eliminarTareaProyecto,
                 actualizarTareaProyecto,
-                cambiarEstadoTarea
+                cambiarEstadoTarea,
+                cerrarSesionProyectos
             }}
 
             >

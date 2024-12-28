@@ -6,7 +6,7 @@ import Alerta from "./Alerta"
 const FormularioProyecto = () => {
 
     
-    const [id, setId] = useState(null)
+    const [id, setId] = useState('')
     const [nombre, setNombre] = useState()
     const [descripcion, setDescripcion] = useState('')
     const [fechaEntrega, setFechaEntrega] = useState('')
