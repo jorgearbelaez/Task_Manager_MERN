@@ -16,21 +16,26 @@ conectarDB();
 
 //configurar cors
 
-const whitelist = [process.env.FRONTEND_URL];
+// const whitelist = [process.env.FRONTEND_URL];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("error de cors"));
-    }
-  },
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("error de cors"));
+//     }
+//   },
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 
 
 // routing
+app.get("/", (req, res) => {
+
+  return res.status(200).json({status:'healthy!'});
+});
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/proyectos", proyectoRoutes);
 app.use("/api/tareas", tareaRoutes);

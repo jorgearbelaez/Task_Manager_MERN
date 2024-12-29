@@ -1,0 +1,14 @@
+FROM node:18-bookworm-slim
+
+WORKDIR /app
+
+COPY package*.json ./
+# install the exact version of our packages in the package.json file
+RUN npm ci 
+
+COPY . .
+
+CMD ["npm", "run", "dev"]
+
+# docker file for local development if we decide run our service using docker compose
+

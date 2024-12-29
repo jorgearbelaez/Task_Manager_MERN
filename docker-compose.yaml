@@ -1,0 +1,60 @@
+name: task_manager
+version: "3.9"
+
+services:
+
+  mongo:
+    container_name: mongo_container
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017" # Mapeo de puertos para acceso externo (eliminar en producción real por seguridad)
+    volumes:
+      
+      - mongo_data:/data/db #to perist data in our database
+    networks:
+      - task_manager
+
+  backend:
+    container_name: backend_container 
+    build:
+      context: ./backend #where the dockerfile is relative to the compose file
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    volumes:
+    # we create volumes in order to map and save any changes in my codebase to the container
+      - ./backend:/app
+      - /app/node_modules # we don't want to map the node_modules folder
+    networks:
+      - task_manager
+    ports:
+      - 4000:4000 #myport:containerport mapping
+    depends_on:
+      - mongo
+  
+  frontend:
+    container_name: frontend_container
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - task_manager
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+   
+volumes: #to tell docker to create and manage this volume
+  mongo_data:
+
+networks: #this is for reference the contairners to communicate with each other without having to map host ports
+  task_manager:
+    driver: bridge

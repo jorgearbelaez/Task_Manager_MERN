@@ -65,7 +65,7 @@ const { msg } = alerta
             <div className="my-5">
                 <label className="uppercase text-gray-900 block  text-xl font-bold"
                 htmlFor="email
-                ">Email</label>
+                ">Correo</label>
                 <input 
                     id="email"
                     type="email"
